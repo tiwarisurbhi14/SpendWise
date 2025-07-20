@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import axios from 'axios'
 
 
-const BASE_URL = "https://spendwise-rko5.onrender.com/api/v1";
+const BASE_URL = "https://spendwise-rko5.onrender.com";
 
 
 const GlobalContext = React.createContext()
@@ -17,7 +17,7 @@ export const GlobalProvider = ({children}) => {
     const addIncome = async (income) => {
         const response = await axios.post(`${BASE_URL}add-income`, income)
             .catch((err) =>{
-              setError(err.response?.data?.message || "Failed to add expense");
+              setError(err.response?.data?.message || "Failed to add income");
             })
             getIncomes();
     }
