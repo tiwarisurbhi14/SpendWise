@@ -1,64 +1,63 @@
-import styled from "styled-components";
-import bg from "./img/bg.png";
-import { MainLayout } from "./styles/Layouts";
-import Orb from "./Components/Orb/Orb";
-import Navigation from "./Components/Navigation/Navigation";
-import Dashboard from "./Components/Dashboard/Dashboard";
-import { useMemo, useState } from "react";
-import Income from "./Components/Income/Income";
-import Expenses from "./Components/Expenses/Expenses";
-import { useGlobalContext } from "./Components/context/globalContext";
+import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthContext } from '../Contexts/AuthContext'; 
+import Login from './components/Login';
+import Register from './components/Register';
+import Dashboard from './components/Dashboard';
+
+const ProtectedRoute = ({ children }) => {
+  const { user } = useContext(AuthContext);
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
+const AuthRoute = ({ children }) => {
+  const { user } = useContext(AuthContext);
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
 
 function App() {
-  const [active, setActive] = useState(1);
+  const { user, authLoading } = useContext(AuthContext);
 
-  const global=useGlobalContext();
-  console.log(global)
-  
-  const displayData = () => {
-    switch (active) {
-      case 1:
-        return <Dashboard />;
-      case 2:
-        return <Dashboard />;
-      case 3:
-        return <Income />;
-      case 4:
-        return <Expenses />;
-      default:
-        return <Dashboard />;
-    }
-  };
-  const orbMemo = useMemo(() => {
-    return <Orb />;
-  }, []);
+  if (authLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <AppStyled bg={bg}>
-      {orbMemo}
-      <MainLayout>
-        <Navigation active={active} setActive={setActive} />
-        <main>{displayData()}</main>
-      </MainLayout>
-    </AppStyled>
+    <BrowserRouter>
+      <Routes>
+        <Route 
+          path="/login" 
+          element={
+            <AuthRoute>
+              <Login />
+            </AuthRoute>
+          }
+        />
+        <Route 
+          path="/register" 
+          element={
+            <AuthRoute>
+              <Register />
+            </AuthRoute>
+          }
+        />
+        <Route 
+          path="/" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
-const AppStyled = styled.div`
-  height: 100vh;
-  background-image: url(${(props) => props.bg});
-  position: relative;
-  main {
-    flex: 1;
-    background: rgba(252, 246, 249, 0.78);
-    border: 3px solid #ffffff;
-    backdrop-filter: blur(4.5px);
-    border-radius: 32px;
-    overflow: auto;
-    overflow-x: hidden;
-    &::-webkit-scrollbar {
-      width: 0;
-    }
-  }
-`;
 
 export default App;
