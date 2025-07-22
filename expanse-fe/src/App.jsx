@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContext } from '../Contexts/AuthContext'; 
-import Login from './components/Login';
-import Register from './components/Register';
-import Dashboard from './components/Dashboard';
+import { AuthContext } from './Contexts/AuthContext'; 
+import Login from './Components/Login/Login';
+import Register  from './Components/Register/Register';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
@@ -15,6 +15,7 @@ const ProtectedRoute = ({ children }) => {
 
 const AuthRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
+
   if (user) {
     return <Navigate to="/" replace />;
   }
