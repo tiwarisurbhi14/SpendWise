@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import Button from '../Button/Buttton';
 import { useGlobalContext } from '../context/globalContext';
-import { plus } from '../../utils/Icons';
+import { plus } from '../../utils/Icons.jsx';
 
 
 function Form() {
