@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { db } = require("./db/db");
+const cookieParser = require('cookie-parser'); 
 const { readdirSync } = require('fs');
 const authRoutes = require("./routes/authRoutes");
 
