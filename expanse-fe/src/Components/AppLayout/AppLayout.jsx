@@ -1,16 +1,14 @@
-// AppLayout.jsx
 import styled from "styled-components";
-import bg from "./img/bg.png";
+import bg from "../../img/bg.png";
 import { MainLayout } from "./styles/Layouts";
-import Orb from "./Components/Orb/Orb";
-import Navigation from "./Components/Navigation/Navigation";
-import Dashboard from "./Components/Dashboard/Dashboard";
+import Orb from "../Orb/Orb";
+import Navigation from "../Navigation/Navigation";
+import Dashboard from "../Dashboard/Dashboard";
 import { useMemo, useState } from "react";
-import Income from "./Components/Income/Income";
-import Expenses from "./Components/Expenses/Expenses";
-import { useGlobalContext } from "./Components/context/globalContext";
+import Income from "../Income/Income";
+import Expenses from "../Expenses/Expenses";
+import { useGlobalContext } from "../Context/globalContext";
 
-// AppLayout.jsx
 function AppLayout() {
   const [active, setActive] = useState(1);
   const global = useGlobalContext();
@@ -55,4 +53,5 @@ const AppStyled = styled.div`
     }
   }
 `;
+
 export default AppLayout;
