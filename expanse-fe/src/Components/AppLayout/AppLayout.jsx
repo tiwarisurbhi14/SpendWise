@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import bg from "../../img/bg.png";
-import { MainLayout } from "./styles/Layouts";
+import { MainLayout } from "../../styles/Layouts";
 import Orb from "../Orb/Orb";
 import Navigation from "../Navigation/Navigation";
 import Dashboard from "../Dashboard/Dashboard";
