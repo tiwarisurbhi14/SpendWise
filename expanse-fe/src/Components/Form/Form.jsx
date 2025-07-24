@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import Button from '../Button/Buttton';
-import { useGlobalContext } from '../context/globalContext';
+import { useGlobalContext } from '../context/globalContext.jsx';
 import { plus } from '../../utils/Icons.jsx';
 
 

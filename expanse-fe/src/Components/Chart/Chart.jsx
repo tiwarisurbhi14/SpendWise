@@ -2,7 +2,7 @@ import React from 'react'
 import { Chart as ChartJs, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { useGlobalContext } from '../Context/globalContext';
+import { useGlobalContext } from '../context/globalContext';
 import { dateFormat } from '../../utils/dateFormat';
 
 ChartJs.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);

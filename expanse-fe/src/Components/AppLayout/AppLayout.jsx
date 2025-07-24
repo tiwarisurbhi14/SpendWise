@@ -7,7 +7,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import { useMemo, useState } from "react";
 import Income from "../Income/Income";
 import Expenses from "../Expenses/Expenses";
-import { useGlobalContext } from "../Context/globalContext";
+import { useGlobalContext } from "../context/globalContext";
 
 function AppLayout() {
   const [active, setActive] = useState(1);
