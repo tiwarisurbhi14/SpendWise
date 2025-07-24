@@ -4,9 +4,12 @@ import { useContext } from "react";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
 import AppLayout from "./Components/AppLayout/AppLayout";
+import axios from "axios";
 
 function App() {
   const { user } =useContext(AuthContext);
+  console.log("Axios baseURL:", axios.defaults.baseURL);
+
 
   return (
     <BrowserRouter>
