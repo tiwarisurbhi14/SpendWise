@@ -3,7 +3,7 @@ import { AuthContext } from "./Contexts/AuthContext";
 import { useContext } from "react";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
-import AppLayout from "./Components/AppLayout/AppLayout.jsx";
+import AppLayout from "./Components/AppLayout/AppLayout";
 
 function App() {
   const { user } =useContext(AuthContext);
