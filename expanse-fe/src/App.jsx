@@ -1,64 +1,32 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContext } from './Contexts/AuthContext'; 
-import Login from './Components/Login/Login';
-import Register  from './Components/Register/Register';
-import Dashboard from './Components/Dashboard/Dashboard';
-
-const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-  return children;
-};
-
-const AuthRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
-
-  if (user) {
-    return <Navigate to="/" replace />;
-  }
-  return children;
-};
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./Contexts/AuthContext";
+import Login from "./Components/Login/Login";
+import Register from "./Components/Register/Register";
 
 function App() {
-  const { user, authLoading } = useContext(AuthContext);
-
-  if (authLoading) {
-    return <div>Loading...</div>;
-  }
+  const { user } = useAuth();
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route 
-          path="/login" 
-          element={
-            <AuthRoute>
-              <Login />
-            </AuthRoute>
-          }
+        <Route
+          path="/"
+          element={user ? (
+            <AppLayout />
+          ) : (
+            <Navigate to="/login" replace />
+          )}
         />
-        <Route 
-          path="/register" 
-          element={
-            <AuthRoute>
-              <Register />
-            </AuthRoute>
-          }
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to="/" replace />}
         />
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
+        <Route
+          path="/register"
+          element={!user ? <Register /> : <Navigate to="/" replace />}
         />
       </Routes>
     </BrowserRouter>
   );
 }
-
 export default App;
