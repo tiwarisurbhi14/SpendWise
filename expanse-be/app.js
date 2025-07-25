@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: 'https://spendwise-1-jd2s.onrender.com/api/v1',
+    origin: 'https://spendwise-1-jd2s.onrender.com',
     credentials: true
 }));
 
