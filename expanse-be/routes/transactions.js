@@ -1,6 +1,6 @@
 const { addIncome,getIncomes,deleteIncome } = require("../controllers/income");
 const {addExpense,getExpenses,deleteExpense} = require("../controllers/expense");
-import { requireAuth } from "../middleware/authMiddleware";
+const requireAuth = require("../middleware/authMiddleware");
 
 const router = require("express").Router();
 
