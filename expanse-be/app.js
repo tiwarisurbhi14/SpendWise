@@ -27,8 +27,17 @@ readdirSync("./routes").map((route) => {
 
 app.use("/api/v1/auth",authRoutes);
 
+
 app.get("/", (req, res) => {
     res.send("Hello World");
+});
+
+// Serve frontend in production
+const path = require("path");
+app.use(express.static(path.join(__dirname, "../expanse-fe/dist")));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../expanse-fe/dist/index.html"));
 });
 
 const server = () => {
