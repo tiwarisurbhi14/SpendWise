@@ -127,6 +127,39 @@ const NavStyled = styled.nav`
             border-radius: 0 10px 10px 0;
         }
     }
+        .bottom-nav {
+        li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            color: rgba(34, 34, 96, .6);
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background: rgba(34, 34, 96, 0.1);
+                color: rgba(34, 34, 96, 1);
+                transform: translateX(5px);
+                box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
+            }
+
+            &:active {
+                transform: scale(0.95);
+                background: rgba(34, 34, 96, 0.2);
+            }
+
+            svg {
+                transition: all 0.3s ease-in-out;
+            }
+
+            &:hover svg {
+                transform: rotate(360deg);
+                color: rgba(34, 34, 96, 1);
+            }
+        }
+    }
 `;
 
 export default Navigation
