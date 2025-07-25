@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require("path");
 const { readdirSync } = require('fs');
 const authRoutes = require("./routes/authRoutes");
-
+const transactionsRoutes = require("./routes/transactions");
 require("dotenv").config();
 
 const app = express();
@@ -21,11 +21,7 @@ app.use(cors({
     credentials: true
 }));
 
-
-readdirSync("./routes").map((route) => {
-    app.use('/api/v1', require('./routes/' + route));
-});
-
+app.use("/api/v1",transactionsRoutes);
 app.use("/api/v1/auth",authRoutes);
 
 
