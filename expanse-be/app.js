@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { db } = require("./db/db");
 const cookieParser = require('cookie-parser'); 
+const path = require("path");
 const { readdirSync } = require('fs');
 const authRoutes = require("./routes/authRoutes");
 
@@ -32,8 +33,6 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-// Serve frontend in production
-const path = require("path");
 app.use(express.static(path.join(__dirname, "../expanse-fe/dist")));
 
 app.get("*", (req, res) => {
