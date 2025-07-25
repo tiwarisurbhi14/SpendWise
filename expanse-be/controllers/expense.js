@@ -3,9 +3,6 @@ const ExpenseSchema = require("../models/expenseModel.js");
 exports.addExpense = async (req, res) => {
   try {
     const { title, amount, type, date, category, description } = req.body;
-
-
-
     if (
       ![title, amount,  date, category, description].every(
         (field) => field !== undefined && field !== null
@@ -28,6 +25,7 @@ exports.addExpense = async (req, res) => {
       date,
       category,
       description,
+      userId:req.userId
     });
 
     await expense.save();
@@ -40,7 +38,7 @@ exports.addExpense = async (req, res) => {
 
 exports.getExpenses = async (req, res) => {
   try {
-    const expense = await ExpenseSchema.find().sort({ createdAt: -1 });
+    const expense = await ExpenseSchema.find({ userId: req.userId }).sort({ createdAt: -1 });
     res.status(200).json(expense);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -49,11 +47,13 @@ exports.getExpenses = async (req, res) => {
 
 exports.deleteExpense = async (req, res) => {
   const { id } = req.params;
-  ExpenseSchema.findByIdAndDelete(id)
-    .then(() =>
-      res.status(200).json({ message: "Expense deleted successfully" })
-    )
-    .catch((error) =>
-      res.status(500).json({ message: "Server error", error: error.message })
-    );
+  try {
+    const expense = await ExpenseSchema.findOneAndDelete({ _id: id, userId: req.userId });
+    if (!expense) {
+      return res.status(404).json({ message: "Expense not found or unauthorized" });
+    }
+    res.status(200).json({ message: "Expense deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
