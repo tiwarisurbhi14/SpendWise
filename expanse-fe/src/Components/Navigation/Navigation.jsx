@@ -3,16 +3,32 @@ import styled from 'styled-components'
 import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons.jsx'
 import { menuItems } from '../../utils/menuItems'
+import { useGlobalContext } from '../context/globalContext.jsx'
+import { AuthContext } from '../../Contexts/AuthContext.jsx'    
+import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react';
 
 function Navigation({active, setActive}) {
+    const {user,logout}=useContext(AuthContext);
+    const {totalBalance} = useGlobalContext();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/login');
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };  
     
     return (
         <NavStyled>
             <div className="user-con">
                 <img src={avatar} alt="" />
                 <div className="text">
-                    <h2>Mike</h2>
-                    <p>Your Money</p>
+                    <h2>{user?.name || 'User'}</h2>
+                    <p>Balance: ${totalBalance || 0}</p>
                 </div>
             </div>
             <ul className="menu-items">
@@ -28,7 +44,7 @@ function Navigation({active, setActive}) {
                 })}
             </ul>
             <div className="bottom-nav">
-                <li>
+                <li onClick={handleLogout}>
                     {signout} Sign Out
                 </li>
             </div>
